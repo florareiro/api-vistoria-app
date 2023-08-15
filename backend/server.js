@@ -41,3 +41,5 @@ db.sequelize
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");
 // });
+
+export default app;
