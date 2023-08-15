@@ -3,13 +3,20 @@ const cors = require("cors");
 
 const app = express();
 
-var corsOptions = {
-  origin: [
-    "http://localhost:8080" ||
-      "https://api-vistoria-app-florareiro.vercel.app/",
-    "http://localhost:3000" || "https://vistoria-app-florareiro.vercel.app/",
-  ],
-};
+// Verifica se a requisição está vindo de um ambiente de desenvolvimento local
+if (process.env.NODE_ENV === "development") {
+  corsOptions = {
+    origin: ["http://localhost:8080", "http://localhost:3000"],
+  };
+} else {
+  // Configuração para ambiente de produção (substitua a URL correta da Vercel)
+  corsOptions = {
+    origin: [
+      "https://api-vistoria-app-florareiro.vercel.app",
+      "https://vistoria-app-florareiro.vercel.app",
+    ],
+  };
+}
 
 app.use(cors(corsOptions));
 
