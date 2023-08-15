@@ -4,7 +4,11 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: ["http://localhost:8080", "http://localhost:3000"],
+  origin: [
+    "http://localhost:8080" ||
+      "https://api-vistoria-app-florareiro.vercel.app/",
+    "http://localhost:3000" || "https://vistoria-app-florareiro.vercel.app/",
+  ],
 };
 
 app.use(cors(corsOptions));
