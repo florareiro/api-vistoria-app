@@ -3,22 +3,29 @@ const cors = require("cors");
 
 const app = express();
 
-// Verifica se a requisição está vindo de um ambiente de desenvolvimento local
+// Configuração do CORS para diferentes ambientes
 if (process.env.NODE_ENV === "development") {
-  corsOptions = {
+  // Opções de CORS para ambiente de desenvolvimento local
+  const corsOptions = {
     origin: ["http://localhost:8080", "http://localhost:3000"],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 204,
   };
+  app.use(cors(corsOptions));
 } else {
-  // Configuração para ambiente de produção (substitua a URL correta da Vercel)
-  corsOptions = {
+  // Opções de CORS para ambiente de produção (substitua a URL correta da Vercel)
+  const corsOptions = {
     origin: [
       "https://api-vistoria-app-florareiro.vercel.app",
       "https://vistoria-app-florareiro.vercel.app",
     ],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 204,
   };
+  app.use(cors(corsOptions));
 }
-
-app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -48,9 +55,3 @@ db.sequelize
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
   });
-
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
-
-export default app;
